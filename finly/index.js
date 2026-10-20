@@ -1,6 +1,10 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
+//Middlewares
+app.use(morgan('dev'));
 
+//Rutas
 app.get('/', (req, res) => {
     res.send('Hello From Node.js');
 });
@@ -13,8 +17,8 @@ app.get('/about', (req, res) => {
     res.send('The About Page');
 });
 
-// Ruta comodín para capturar 404 (páginas no encontradas)
-app.get('*', (req, res) => {
+// Manejador para rutas no encontradas (404)
+app.use((req, res) => {
     res.status(404).send('Not Found');
 });
 
