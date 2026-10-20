@@ -1,25 +1,30 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
-//Middlewares
+
+// Configuración del motor de plantillas EJS
+app.set('views', './views');
+app.set('view engine', 'ejs');
+
+// Middlewares
 app.use(morgan('dev'));
 
-//Rutas
+// Rutas
 app.get('/', (req, res) => {
-    res.send('Hello From Node.js');
+    res.render('index', { message: 'Hello From Node.js' });
 });
 
 app.get('/contact', (req, res) => {
-    res.send('The Contact Page');
+    res.render('index', { message: 'The Contact Page' });
 });
 
 app.get('/about', (req, res) => {
-    res.send('The About Page');
+    res.render('index', { message: 'The About Page' });
 });
 
 // Manejador para rutas no encontradas (404)
 app.use((req, res) => {
-    res.status(404).send('Not Found');
+    res.status(404).render('index', { message: 'Not Found' });
 });
 
 const PORT = 3000;
